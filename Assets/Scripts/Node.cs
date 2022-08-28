@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
+    private float _directDistanceToEnd = 0;
+
+    public float DirectDistanceToEnd//finding direct distance to end
+    {
+        get { return _directDistanceToEnd; }
+    }
+
+    public void SetDirectDistanceToEnd(Vector3 endPosition)
+    {
+        _directDistanceToEnd = Vector3.Distance(transform.position, endPosition);
+    }
+
     /// <summary>
     /// total cost of shortest "parth" to this node
     /// </summary>
@@ -12,6 +24,12 @@ public class Node : MonoBehaviour
     private Node _previousNode = null;
     
     //breakpoint
+    public float PathWeightHeuristic
+    {
+        get { return _pathWeight + _directDistanceToEnd; }
+        set { _pathWeight = value; }
+    }
+
     public float PathWeight
     {
         get { return _pathWeight; }
@@ -21,7 +39,7 @@ public class Node : MonoBehaviour
     /// <summary>
     /// following the shortest path, previousNode is the previous step on that path
     /// </summary>
-    public Node PreviousNode 
+    public Node PreviousNode
     {
         get { return _previousNode; }
         set { _previousNode = value; }
@@ -51,6 +69,7 @@ public class Node : MonoBehaviour
     {
         _pathWeight = int.MaxValue;
         _previousNode = null;
+        _directDistanceToEnd = 0;
     }
 
     public void AddNeighbourNode(Node node)

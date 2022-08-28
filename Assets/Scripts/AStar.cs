@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dijkstra : MonoBehaviour
+public class AStar : MonoBehaviour
 {
     private GameObject[] _nodes;
     
     public Node start;
     public Node end;
     public System.Diagnostics.Stopwatch stopwatch;
-
 
     private void Start()
     {
@@ -25,7 +24,7 @@ public class Dijkstra : MonoBehaviour
             {
                 if (prevNode != null)
                 {
-                    Debug.DrawLine(node.transform.position + Vector3.up, prevNode.transform.position + Vector3.up, Color.blue, 10f);
+                    Debug.DrawLine(node.transform.position + Vector3.up, prevNode.transform.position + Vector3.up, Color.green, 10f);
                 }
 
                 Debug.Log(node.gameObject.name);
@@ -33,7 +32,7 @@ public class Dijkstra : MonoBehaviour
             }
         }
         stopwatch.Stop();
-        Debug.LogWarning("Dijkstra: " + stopwatch.Elapsed);
+        Debug.LogWarning("AStar: " + stopwatch.Elapsed);
     }
 
 
@@ -41,7 +40,12 @@ public class Dijkstra : MonoBehaviour
     {
         _nodes = GameObject.FindGameObjectsWithTag("Node");
 
-        if (DijkstraAlgorithm(start, end))
+        foreach (GameObject node in _nodes)
+        {
+
+        }
+
+        if (AStarAlgorithm(start, end))
         {
             List<Node> result = new List<Node>();
 
@@ -52,13 +56,13 @@ public class Dijkstra : MonoBehaviour
                 node = node.PreviousNode;
             } while (node != null);
             
-            Debug.Log((DijkstraAlgorithm(start, end)));
+            Debug.Log((AStarAlgorithm(start, end)));
             return result;
         }
-        Debug.Log((DijkstraAlgorithm(start, end)));
+        Debug.Log((AStarAlgorithm(start, end)));
         return null;
     }
-    private bool DijkstraAlgorithm(Node start, Node end)
+    private bool AStarAlgorithm(Node start, Node end)
     {
         List<Node> unexplored = new List<Node>();
 
@@ -67,6 +71,7 @@ public class Dijkstra : MonoBehaviour
             Node n = obj.GetComponent<Node>();
             if (n == null) continue;//continue stops at this point and continues the loop
             n.ResetNode();
+            n.SetDirectDistanceToEnd(end.transform.position);
             unexplored.Add(n);
         }
         if (!unexplored.Contains(start) && !unexplored.Contains(end))
@@ -77,7 +82,7 @@ public class Dijkstra : MonoBehaviour
         while (unexplored.Count > 0)
         {
             //order based on path
-            unexplored.Sort((x, y) => x.PathWeight.CompareTo(y.PathWeight)); //explaining to the function
+            unexplored.Sort((x, y) => x.PathWeightHeuristic.CompareTo(y.PathWeightHeuristic)); //explaining to the function
 
             //current is the current shortest path possible
             Node current = unexplored[0];
