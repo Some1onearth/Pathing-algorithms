@@ -21,7 +21,7 @@ public class FollowPath : MonoBehaviour
     void UpdateWayPoint()
     {
         _waypoints.Clear();
-        AStar pathFinder = GameObject.Find("GameManager").GetComponent<AStar>();
+        AStar pathFinder = GameObject.Find("GameHandler").GetComponent<AStar>();
         foreach (Node node in pathFinder.FindShortestPath(pathFinder.start, pathFinder.end))
         {
             _waypoints.Add(node.transform);
@@ -47,8 +47,6 @@ public class FollowPath : MonoBehaviour
 
     }
 
-
-
     public void Damage(int damage)
     {
         enemyCurHP -= damage;
@@ -58,9 +56,7 @@ public class FollowPath : MonoBehaviour
         {
             Debug.Log("Enemy Killed");
             Destroy(this.gameObject);
-            ScoreManager.staticScore.AddScore(10);
+            GameManager.gameManager.AddScore(10);
         }
-
-
     }
 }

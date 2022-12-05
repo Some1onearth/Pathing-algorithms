@@ -20,25 +20,25 @@ public class Node : MonoBehaviour
     /// total cost of shortest "parth" to this node
     /// </summary>
 
-    private float _pathWeight = int.MaxValue;
-    private Node _previousNode = null;
-    
+    private float _pathWeight = 1;
+
     //breakpoint
     public float PathWeightHeuristic
     {
-        get { return _pathWeight + _directDistanceToEnd; }
+        get { return _pathWeight + towerWeight; }
         set { _pathWeight = value; }
     }
 
     public float PathWeight
     {
-        get { return _pathWeight; }
+        get { return _pathWeight + _directDistanceToEnd; }
         set { _pathWeight = value; }
     }
-    
+
     /// <summary>
     /// following the shortest path, previousNode is the previous step on that path
     /// </summary>
+    private Node _previousNode = null;
     public Node PreviousNode
     {
         get { return _previousNode; }
@@ -49,6 +49,7 @@ public class Node : MonoBehaviour
     /// Nodes this node is connected to
     /// </summary>
 
+    public float towerWeight = 0;
     [SerializeField] private List<Node> _neighbourNodes;
     public List<Node> NeighbourNodes
     {
