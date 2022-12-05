@@ -12,7 +12,7 @@ public class AStar : MonoBehaviour
 
     private void Start()
     {
-        stopwatch.Start();
+        //stopwatch.Start();
 
         List<Node> shortestPath = FindShortestPath(start, end);
 
@@ -31,8 +31,8 @@ public class AStar : MonoBehaviour
                 prevNode = node;
             }
         }
-        stopwatch.Stop();
-        Debug.LogWarning("AStar: " + stopwatch.Elapsed);
+        //stopwatch.Stop();
+        //Debug.LogWarning("AStar: " + stopwatch.Elapsed);
     }
 
 

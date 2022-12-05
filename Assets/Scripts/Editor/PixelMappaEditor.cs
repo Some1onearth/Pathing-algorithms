@@ -79,7 +79,7 @@ public class PixelMappaEditor : EditorWindow
             {
                 Debug.Log("Colour Match");
                 //turn the pixel x and y into vector2 position
-                Vector2 pos = new Vector2(x, y);
+                Vector3 pos = new Vector3(x, 0, y);
                 //Spawn object that matches pixel colour at pixel position
                 Instantiate(colourMapping.prefab, pos, Quaternion.identity);
             }

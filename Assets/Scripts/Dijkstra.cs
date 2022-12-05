@@ -13,7 +13,7 @@ public class Dijkstra : MonoBehaviour
 
     private void Start()
     {
-        stopwatch.Start();
+        //stopwatch.Start();
 
         List<Node> shortestPath = FindShortestPath(start, end);
 
@@ -32,8 +32,8 @@ public class Dijkstra : MonoBehaviour
                 prevNode = node;
             }
         }
-        stopwatch.Stop();
-        Debug.LogWarning("Dijkstra: " + stopwatch.Elapsed);
+        //stopwatch.Stop();
+        //Debug.LogWarning("Dijkstra: " + stopwatch.Elapsed);
     }
 
 
